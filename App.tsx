@@ -27,6 +27,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+// Paiyan git seekho aur naam kamao
+
 const Section: React.FC<
   PropsWithChildren<{
     title: string;
