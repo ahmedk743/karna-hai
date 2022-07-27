@@ -1,35 +1,19 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {TAGS} from '../constants/data';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import Tag from '../components/Tag';
+import {GLOBAL_STYLES} from '../common';
+import {useData} from '../contexts/AppContext';
 
 const Tags = () => {
-  const [tags, setTags] = React.useState(TAGS);
+  const {tags, setTags} = useData();
 
   return (
-    <View>
-      <Text style={{fontWeight: '700', fontSize: 20, margin: 10}}>Tags</Text>
-      {tags.map((tag: any) => (
-        <View
-          style={{
-            backgroundColor: tag.color,
-            marginVertical: 10,
-            marginHorizontal: 10,
-            flexDirection: 'row',
-            padding: 10,
-            borderRadius: 50,
-            alignSelf: 'flex-start',
-          }}>
-          <FontAwesomeIcon
-            style={{marginRight: 5}}
-            color="white"
-            icon={tag.icon}
-          />
-          <Text style={{color: 'white'}} key={tag.id}>
-            {tag.name}
-          </Text>
-        </View>
-      ))}
+    <View style={GLOBAL_STYLES.screenWrapper}>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+        {tags.map((tag: any, index: number) => (
+          <Tag key={index} tag={tag} />
+        ))}
+      </View>
     </View>
   );
 };

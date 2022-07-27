@@ -2,14 +2,20 @@ import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
+import Context from './src/contexts/AppContext';
+import 'react-native-gesture-handler';
+import Tags from './src/screens/Tags';
+
 // Paiyan git seekho aur naam kamao
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <StatusBar backgroundColor="#00d4aa" />
-      <Tabs />
-    </NavigationContainer>
+    <Context>
+      <NavigationContainer>
+        <StatusBar backgroundColor="#00d4aa" />
+        <Tabs />
+      </NavigationContainer>
+    </Context>
   );
 };
 

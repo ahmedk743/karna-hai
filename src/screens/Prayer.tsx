@@ -1,15 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Switch, Text, View} from 'react-native';
 import React from 'react';
 import {GLOBAL_STYLES} from '../common';
 
-const Tasks = () => {
+const Prayer = () => {
   return (
     <View style={GLOBAL_STYLES.screenWrapper}>
-      <Text></Text>
+      <View>
+        <Text>Prayer</Text>
+        <Switch />
+      </View>
     </View>
   );
 };
 
-export default Tasks;
+export default Prayer;
 
 const styles = StyleSheet.create({});

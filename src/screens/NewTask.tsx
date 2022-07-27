@@ -5,7 +5,10 @@ import {Modal} from 'react-native';
 const NewTask = ({navigation}: any) => {
   const [isModalVisible, setIsModalVisible] = React.useState(true);
 
-  const handleModal = () => setIsModalVisible(() => !isModalVisible);
+  const handleModal = () => {
+    setIsModalVisible(() => !isModalVisible);
+    navigation.navigate('Tasks');
+  };
 
   //   React.useEffect(() => {
   //     return () => {

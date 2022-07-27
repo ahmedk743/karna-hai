@@ -4,22 +4,23 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Tasks from '../screens/Tasks';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
+  faArrowLeft,
+  faBarsStaggered,
   faCalendar,
   faCog,
+  faEllipsisV,
   faList,
   faPlus,
-  faTag,
+  faPray,
 } from '@fortawesome/free-solid-svg-icons';
 import NewTask from '../screens/NewTask';
 import Settings from '../screens/Settings';
 import Calendar from '../screens/Calendar';
+import Prayer from '../screens/Prayer';
+import {THEME} from '../constants';
+import {TouchableRipple} from 'react-native-paper';
+import {SIZES} from '../constants/theme';
 import Tags from '../screens/Tags';
-
-// import HomeScreen from '../screens/HomeScreen';
-// import ListScreen from '../screens/ListScreen';
-// import UsersScreen from '../screens/UsersScreen';
-// import PostScreen from '../screens/PostScreen';
-// import SettingsScreen from '../screens/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,15 +35,16 @@ const CustomTabBarButton = ({children, onPress}: any) => (
     onPress={onPress}>
     <View
       style={{
-        width: 55,
-        height: 55,
-        borderRadius: 35,
-        backgroundColor: '#00d4aa',
+        width: 65,
+        height: 65,
+        borderRadius: 45,
+        backgroundColor: THEME.COLORS.primary,
       }}>
       {children}
     </View>
   </TouchableOpacity>
 );
+
 const Tabs = () => {
   const [showPostButton, setShowPostButton] = useState(true);
 
@@ -53,9 +55,9 @@ const Tabs = () => {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: 20,
-          left: 20,
-          right: 20,
+          bottom: 10,
+          left: 10,
+          right: 10,
           backgroundColor: '#FFFFFF',
           borderRadius: 15,
           borderBottomColor: '#ccc',
@@ -64,9 +66,47 @@ const Tabs = () => {
           borderRightWidth: 4,
           borderLeftColor: '#ccc',
           borderLeftWidth: 1,
-          height: 60,
+          height: SIZES.tabBarHeight,
           paddingBottom: 20,
           ...styles.shadow,
+        },
+
+        headerRight: () => (
+          <TouchableOpacity style={{marginRight: 18}} onPress={() => {}}>
+            <FontAwesomeIcon
+              icon={faEllipsisV}
+              size={20}
+              color={THEME.COLORS.primary}
+            />
+          </TouchableOpacity>
+        ),
+        headerLeft: ({navigation}: any) => (
+          <TouchableOpacity style={{marginLeft: 12}} onPress={() => {}}>
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size={20}
+              color={THEME.COLORS.primary}
+            />
+          </TouchableOpacity>
+        ),
+        headerStyle: {
+          borderBottomColor: 'transparent',
+          borderBottomWidth: 1,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 7,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.5,
+          elevation: 4,
+        },
+        headerTitleAlign: 'center',
+
+        headerTitleStyle: {
+          textTransform: 'uppercase',
+          fontWeight: '700',
+          fontSize: 24,
         },
       }}>
       <Tab.Screen
@@ -82,16 +122,20 @@ const Tabs = () => {
                 top: 10,
               }}>
               <FontAwesomeIcon
-                color={focused ? '#00d4aa' : '#748c94'}
+                color={focused ? THEME.COLORS.primary : '#748c94'}
+                size={24}
                 icon={faList}
               />
-              <Text
-                style={{
-                  color: focused ? '#00d4aa' : '#748c94',
-                  fontSize: 10,
-                }}>
-                TASKS
-              </Text>
+              {focused && (
+                <Text
+                  style={{
+                    color: focused ? THEME.COLORS.primary : '#748c94',
+                    fontSize: 9,
+                    textTransform: 'uppercase',
+                  }}>
+                  TASKS
+                </Text>
+              )}
             </View>
           ),
         }}
@@ -109,16 +153,20 @@ const Tabs = () => {
                 top: 10,
               }}>
               <FontAwesomeIcon
-                color={focused ? '#00d4aa' : '#748c94'}
+                color={focused ? THEME.COLORS.primary : '#748c94'}
+                size={24}
                 icon={faCalendar}
               />
-              <Text
-                style={{
-                  color: focused ? '#00d4aa' : '#748c94',
-                  fontSize: 10,
-                }}>
-                Calendar
-              </Text>
+              {focused && (
+                <Text
+                  style={{
+                    color: focused ? THEME.COLORS.primary : '#748c94',
+                    fontSize: 9,
+                    textTransform: 'uppercase',
+                  }}>
+                  Calendar
+                </Text>
+              )}
             </View>
           ),
         }}
@@ -136,7 +184,7 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Tags"
+        name="Prayer"
         component={Tags}
         options={{
           tabBarHideOnKeyboard: true,
@@ -148,16 +196,20 @@ const Tabs = () => {
                 top: 10,
               }}>
               <FontAwesomeIcon
-                color={focused ? '#00d4aa' : '#748c94'}
-                icon={faTag}
+                color={focused ? THEME.COLORS.primary : '#748c94'}
+                size={24}
+                icon={faPray}
               />
-              <Text
-                style={{
-                  color: focused ? '#00d4aa' : '#748c94',
-                  fontSize: 10,
-                }}>
-                Tags
-              </Text>
+              {focused && (
+                <Text
+                  style={{
+                    color: focused ? THEME.COLORS.primary : '#748c94',
+                    fontSize: 9,
+                    textTransform: 'uppercase',
+                  }}>
+                  Prayer
+                </Text>
+              )}
             </View>
           ),
         }}
@@ -175,16 +227,20 @@ const Tabs = () => {
                 top: 10,
               }}>
               <FontAwesomeIcon
-                color={focused ? '#00d4aa' : '#748c94'}
+                color={focused ? THEME.COLORS.primary : '#748c94'}
                 icon={faCog}
+                size={24}
               />
-              <Text
-                style={{
-                  color: focused ? '#00d4aa' : '#748c94',
-                  fontSize: 10,
-                }}>
-                Settings
-              </Text>
+              {focused && (
+                <Text
+                  style={{
+                    color: focused ? THEME.COLORS.primary : '#748c94',
+                    fontSize: 9,
+                    textTransform: 'uppercase',
+                  }}>
+                  Settings
+                </Text>
+              )}
             </View>
           ),
         }}
