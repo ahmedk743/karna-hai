@@ -1,20 +1,38 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
 import Context from './src/contexts/AppContext';
-import 'react-native-gesture-handler';
-import Tags from './src/screens/Tags';
+import Tags from './src/screens/Tags/Tags';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NewTask} from './src/screens/NewTask';
+import {NativeBaseProvider} from 'native-base';
+
+const Stack = createStackNavigator();
 
 // Paiyan git seekho aur naam kamao
 
 const App = () => {
   return (
     <Context>
-      <NavigationContainer>
-        <StatusBar backgroundColor="#00d4aa" />
-        <Tabs />
-      </NavigationContainer>
+      <NativeBaseProvider>
+        <NavigationContainer>
+          <StatusBar backgroundColor="#00d4aa" />
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen
+              options={{
+                headerShown: false,
+              }}
+              name="Main"
+              component={Tabs}
+            />
+            <Stack.Screen name="Tags" component={Tags} />
+            {/* <Tabs /> */}
+          </Stack.Navigator>
+        </NavigationContainer>
+        <NewTask />
+      </NativeBaseProvider>
     </Context>
   );
 };

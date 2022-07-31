@@ -1,10 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Tag from '../components/Tag';
-import {GLOBAL_STYLES} from '../common';
-import {useData} from '../contexts/AppContext';
+import Tag from '../../components/Tag';
+import {GLOBAL_STYLES} from '../../common';
+import {useData} from '../../contexts/AppContext';
 
-const Tags = () => {
+const Tags = ({navigation}: any) => {
   const {tags, setTags} = useData();
 
   return (

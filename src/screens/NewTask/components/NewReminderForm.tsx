@@ -1,15 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {GLOBAL_STYLES} from '../common';
 
-const Tasks = () => {
+const NewReminderForm = () => {
   return (
-    <View style={GLOBAL_STYLES.screenWrapper}>
-      <Text></Text>
+    <View>
+      <Text>NewReminderForm</Text>
     </View>
   );
 };
 
-export default Tasks;
+export default NewReminderForm;
 
 const styles = StyleSheet.create({});

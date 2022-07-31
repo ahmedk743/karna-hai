@@ -1,12 +1,12 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {COLORS, SIZES} from '../constants/theme';
 
-const {screenWrapper} = StyleSheet.create({
+const {screenWrapper, settingsListItem} = StyleSheet.create({
   screenWrapper: {
     display: 'flex',
     flexGrow: 1,
     backgroundColor: COLORS.background,
-    marginBottom: SIZES.tabBarHeight + 20,
+    maxHeight: '87%',
     paddingVertical: 20,
     marginHorizontal: 10,
     borderBottomLeftRadius: 20,
@@ -20,6 +20,20 @@ const {screenWrapper} = StyleSheet.create({
     borderLeftColor: '#ccc2',
     borderLeftWidth: 1,
   },
+  settingsListItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    height: 50,
+    width: '100%',
+
+    paddingLeft: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
 });
 
-export {screenWrapper};
+export {screenWrapper, settingsListItem};

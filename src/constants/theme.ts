@@ -14,5 +14,6 @@ const COLORS = {
   //green color
   success: '#00ff00',
   warning: '#ffc107',
+  gray: '#748c94',
 };
 export {SIZES, COLORS};

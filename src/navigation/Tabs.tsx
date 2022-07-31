@@ -1,26 +1,26 @@
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import Tasks from '../screens/Tasks';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   faArrowLeft,
-  faBarsStaggered,
   faCalendar,
   faCog,
   faEllipsisV,
   faList,
+  faMosque,
   faPlus,
   faPray,
 } from '@fortawesome/free-solid-svg-icons';
-import NewTask from '../screens/NewTask';
-import Settings from '../screens/Settings';
-import Calendar from '../screens/Calendar';
-import Prayer from '../screens/Prayer';
+import NewTask from '../screens/NewTask/NewTask';
 import {THEME} from '../constants';
-import {TouchableRipple} from 'react-native-paper';
 import {SIZES} from '../constants/theme';
-import Tags from '../screens/Tags';
+import {Tasks} from '../screens/Tasks';
+import {Calendar} from '../screens/Calendar';
+import {Prayer} from '../screens/Prayer';
+import {Settings} from '../screens/Settings';
+import {useData} from '../contexts/AppContext';
+import moment from 'moment';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,9 +45,10 @@ const CustomTabBarButton = ({children, onPress}: any) => (
   </TouchableOpacity>
 );
 
-const Tabs = () => {
-  const [showPostButton, setShowPostButton] = useState(true);
+const MockupScreenForModal = () => <></>;
 
+const Tabs = () => {
+  const {setShowNewTaskModal} = useData();
   return (
     <Tab.Navigator
       initialRouteName="Tasks"
@@ -173,20 +174,29 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="NewTask"
-        component={NewTask}
+        component={MockupScreenForModal}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) => (
             <FontAwesomeIcon icon={faPlus} size={35} color="#fff" />
           ),
-          tabBarButton: props =>
-            showPostButton ? <CustomTabBarButton {...props} /> : null,
+          tabBarButton: props => <CustomTabBarButton {...props} />,
+        }}
+        listeners={{
+          tabPress: e => {
+            // Prevent default action
+            e.preventDefault();
+
+            //Any custom code here
+            setShowNewTaskModal(true);
+          },
         }}
       />
       <Tab.Screen
         name="Prayer"
-        component={Tags}
+        component={Prayer}
         options={{
+          title: moment().format('MMMM YYYY'),
           tabBarHideOnKeyboard: true,
           tabBarIcon: ({focused}) => (
             <View
@@ -198,7 +208,7 @@ const Tabs = () => {
               <FontAwesomeIcon
                 color={focused ? THEME.COLORS.primary : '#748c94'}
                 size={24}
-                icon={faPray}
+                icon={faMosque}
               />
               {focused && (
                 <Text
