@@ -13,19 +13,36 @@ import {COLORS} from '../constants/theme';
 import Tag from '../components/Tag';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBell} from '@fortawesome/free-solid-svg-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TasksList = ({tasks, setTasks, showSideDate}: any) => {
   let row: Array<any> = [];
   let prevOpenedRow: any;
+  const removeData = async (index: any) => {
+    try {
+      let prevArray: any = await AsyncStorage.getItem('reminders');
+      prevArray = prevArray != null ? JSON.parse(prevArray) : null;
+      if (prevArray) {
+        prevArray.splice(index, 1);
+        setTasks([...prevArray]);
+        const jsonValue = JSON.stringify([...prevArray]);
+        await AsyncStorage.setItem('reminders', jsonValue);
+      }
+    } catch (e) {
+      // saving error
+      alert('Error while deleting task state!');
+    }
+  };
   return (
     <FlatList
       data={tasks}
       showsVerticalScrollIndicator={false}
       renderItem={({item, index}) => {
         const onClick = () => {
-          let a = tasks;
-          a.splice(index, 1);
-          setTasks([...a]);
+          // let a = tasks;
+          // a.splice(index, 1);
+          // setTasks([...a]);
+          removeData(index);
         };
 
         const closeRow = (index: number) => {

@@ -34,7 +34,7 @@ export default function Prayer() {
             });
           });
           setPrayers(prayersTemp);
-          console.log('prayersTemp', prayersTemp);
+          // console.log('prayersTemp', prayersTemp);
         }
         setLoading(false);
       })
@@ -107,9 +107,10 @@ export default function Prayer() {
           marginHorizontal: 10,
         }}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 20}}>{item.name}</Text>
-          <Text style={{fontSize: 20}}>{item.time}</Text>
+          <Text style={{fontSize: 20, flex: 1}}>{item.name}</Text>
+          <Text style={{fontSize: 20, flex: 1}}>{item.time}</Text>
           <Switch
+            style={{flex: 1}}
             value={item.allow}
             colorScheme="emerald"
             size="md"

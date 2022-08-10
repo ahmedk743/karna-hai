@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   faArrowLeft,
+  faArrowsAlt,
+  faArrowsSplitUpAndLeft,
   faCalendar,
   faCog,
   faEllipsisV,
@@ -11,16 +13,20 @@ import {
   faMosque,
   faPlus,
   faPray,
+  faSort,
+  faSortAlphaAsc,
+  faSortNumericAsc,
 } from '@fortawesome/free-solid-svg-icons';
 import NewTask from '../screens/NewTask/NewTask';
 import {THEME} from '../constants';
-import {SIZES} from '../constants/theme';
+import {COLORS, SIZES} from '../constants/theme';
 import {Tasks} from '../screens/Tasks';
 import {Calendar} from '../screens/Calendar';
 import {Prayer} from '../screens/Prayer';
 import {Settings} from '../screens/Settings';
 import {useData} from '../contexts/AppContext';
 import moment from 'moment';
+import {Box, Menu, Pressable} from 'native-base';
 
 const Tab = createBottomTabNavigator();
 
@@ -73,23 +79,70 @@ const Tabs = () => {
         },
 
         headerRight: () => (
-          <TouchableOpacity style={{marginRight: 18}} onPress={() => {}}>
-            <FontAwesomeIcon
-              icon={faEllipsisV}
-              size={20}
-              color={THEME.COLORS.primary}
-            />
-          </TouchableOpacity>
+          <Box alignItems="center">
+            <Menu
+              w="190"
+              trigger={(triggerProps: any) => {
+                return (
+                  <TouchableOpacity
+                    style={{
+                      marginRight: 10,
+                      padding: 6,
+                      borderRadius: 50,
+                    }}
+                    accessibilityLabel="More options menu"
+                    {...triggerProps}>
+                    <FontAwesomeIcon
+                      icon={faEllipsisV}
+                      size={20}
+                      color={THEME.COLORS.primary}
+                    />
+                  </TouchableOpacity>
+                );
+              }}>
+              <Menu.Item isDisabled>
+                <Text style={{fontSize: 12}}>Sort</Text>
+              </Menu.Item>
+              <Menu.Item>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <FontAwesomeIcon
+                    color={COLORS.gray}
+                    icon={faSortNumericAsc}
+                    size={20}
+                    style={{marginRight: 5}}
+                  />
+                  <Text> Priority</Text>
+                </View>
+              </Menu.Item>
+              <Menu.Item>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    style={{
+                      width: 18,
+                      height: 18,
+                      marginRight: 5,
+                      tintColor: COLORS.gray,
+                    }}
+                    source={require('../assets/images/arrows.png')}></Image>
+                  <Text> Date</Text>
+                </View>
+              </Menu.Item>
+            </Menu>
+          </Box>
         ),
-        headerLeft: ({navigation}: any) => (
-          <TouchableOpacity style={{marginLeft: 12}} onPress={() => {}}>
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              size={20}
-              color={THEME.COLORS.primary}
-            />
-          </TouchableOpacity>
-        ),
+        // headerLeft: ({navigation}: any) => (
+        //   <TouchableOpacity style={{marginLeft: 12}}>
+        //     <FontAwesomeIcon
+        //       icon={faArrowLeft}
+        //       size={20}
+        //       color={THEME.COLORS.primary}
+        //     />
+        //   </TouchableOpacity>
+        // ),
         headerStyle: {
           borderBottomColor: 'transparent',
           borderBottomWidth: 1,

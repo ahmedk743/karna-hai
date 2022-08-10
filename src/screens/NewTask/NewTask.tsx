@@ -15,6 +15,7 @@ import NewTaskForm from './components/NewTaskForm';
 import Modal from 'react-native-modal';
 import moment from 'moment';
 import {useToast} from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NewTask = ({navigation}: any) => {
   const toast = useToast();
@@ -35,8 +36,48 @@ const NewTask = ({navigation}: any) => {
     priority: 1,
   });
 
+  // reset form
+  React.useEffect(() => {
+    setTask({
+      title: '',
+      date: new Date(),
+      timeFrom: new Date(new Date().getTime() + 10 * 60000),
+      timeTo: new Date(new Date().getTime() + 30 * 60000),
+      enableDND: true,
+      message: 'Insaan bano, time per call kro.',
+      allowAutomaticMessageOnMissedCall: true,
+      description: '',
+      hasReminder: true,
+      reminders: [],
+      tags: [],
+      numbersToOverrideQuietMode: [],
+      priority: 1,
+    });
+  }, [showNewTaskModal]);
+
   const handleModal = () => {
     setShowNewTaskModal(() => false);
+  };
+
+  const _storeData = async (value: any) => {
+    try {
+      let prevArray: any = await AsyncStorage.getItem('reminders');
+      prevArray = prevArray != null ? JSON.parse(prevArray) : null;
+
+      if (prevArray) {
+        prevArray.push(value);
+        const jsonValue = JSON.stringify([...prevArray]);
+        await AsyncStorage.setItem('reminders', jsonValue);
+      } else {
+        let arr = [];
+        arr.push(value);
+        const jsonValue = JSON.stringify(arr);
+        await AsyncStorage.setItem('reminders', jsonValue);
+      }
+    } catch (e: any) {
+      // saving error
+      alert('Error while saving reminder!');
+    }
   };
 
   return (
@@ -106,6 +147,8 @@ const NewTask = ({navigation}: any) => {
               });
 
               handleModal();
+
+              _storeData(task);
 
               toast.show({
                 description: 'Task added, hurray!',

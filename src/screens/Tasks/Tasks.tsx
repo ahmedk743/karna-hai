@@ -1,22 +1,6 @@
-import {
-  Button,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {GLOBAL_STYLES} from '../../common';
 import {useData} from '../../contexts/AppContext';
-import moment from 'moment';
-import {COLORS, SIZES} from '../../constants/theme';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faBell} from '@fortawesome/free-solid-svg-icons';
-import Tag from '../../components/Tag';
-import {Swipeable} from 'react-native-gesture-handler';
 import TasksList from '../../common/TasksList';
 
 const Tasks = () => {

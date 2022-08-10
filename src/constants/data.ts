@@ -167,7 +167,7 @@ const TASKS = [
   {
     id: 4,
     title: 'Khao Peo Hago Mooto Sojao aur Soty Howe B*nd Na Do',
-    date: '02-Aug-2022',
+    date: '03-Aug-2022',
     timeFrom: new Date(),
     timeTo: new Date(),
     enableDND: true,
@@ -191,7 +191,7 @@ const TASKS = [
   {
     id: 5,
     title: 'Khao Peo Hago Mooto Sojao aur Soty Howe B*nd Na Do',
-    date: '02-Aug-2022',
+    date: '03-Aug-2022',
     timeFrom: new Date(),
     timeTo: new Date(),
     enableDND: true,

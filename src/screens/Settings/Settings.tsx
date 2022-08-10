@@ -21,6 +21,15 @@ const Settings = ({navigation}: any) => {
 
       <Title title="Other" />
       <RegisterAccount />
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 12,
+          color: 'gray',
+          marginTop: 10,
+        }}>
+        KarnaHai © Version 1.0.0
+      </Text>
     </View>
   );
 };

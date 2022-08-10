@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar, StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
 import Context from './src/contexts/AppContext';
@@ -53,6 +53,19 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#ff8c21',
+    padding: 10,
+    justifyContent: 'center',
+    height: 60,
+    width: '100%',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: 'white',
   },
 });
 
