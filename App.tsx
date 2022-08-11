@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Tabs from './src/navigation/Tabs';
 import Context from './src/contexts/AppContext';

@@ -16,6 +16,11 @@ import Modal from 'react-native-modal';
 import moment from 'moment';
 import {useToast} from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import notifee, {
+  AndroidColor,
+  TimestampTrigger,
+  TriggerType,
+} from '@notifee/react-native';
 
 const NewTask = ({navigation}: any) => {
   const toast = useToast();
@@ -79,6 +84,38 @@ const NewTask = ({navigation}: any) => {
       alert('Error while saving reminder!');
     }
   };
+
+  async function onCreateTriggerNotification(date: Date) {
+    // Create a channel (required for Android)
+    const channelId = await notifee.createChannel({
+      id: 'default',
+      name: 'Default Channel',
+      sound: 'victory',
+      vibration: true,
+      vibrationPattern: [300, 500],
+    });
+
+    // Create a time-based trigger
+    const trigger: TimestampTrigger = {
+      type: TriggerType.TIMESTAMP,
+      timestamp: date.getTime(), // fire at 11:10am (10 minutes before meeting)
+    };
+
+    // Create a trigger notification
+    await notifee.createTriggerNotification(
+      {
+        title: task.title,
+        body: `Today at ${moment(date).format('hh:mm a')}`,
+        android: {
+          channelId,
+          pressAction: {
+            id: 'default',
+          },
+        },
+      },
+      trigger,
+    );
+  }
 
   return (
     <Modal
@@ -149,6 +186,7 @@ const NewTask = ({navigation}: any) => {
               handleModal();
 
               _storeData(task);
+              task.hasReminder && onCreateTriggerNotification(task.timeFrom);
 
               toast.show({
                 description: 'Task added, hurray!',
