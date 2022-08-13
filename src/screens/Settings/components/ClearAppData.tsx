@@ -8,6 +8,7 @@ import notifee, {
   TimestampTrigger,
   TriggerType,
 } from '@notifee/react-native';
+import moment from 'moment';
 
 async function onDisplayNotification() {
   // Create a channel (required for Android)
@@ -31,7 +32,7 @@ async function onDisplayNotification() {
     },
   });
 }
-
+console.log('timeasd:', moment(new Date()).format('hh'));
 async function onCreateTriggerNotification() {
   // Create a channel (required for Android)
   const channelId = await notifee.createChannel({
@@ -43,13 +44,14 @@ async function onCreateTriggerNotification() {
   });
 
   const date = new Date(Date.now());
-  date.setHours(12);
-  date.setMinutes(56);
+  date.setHours(13);
+  date.setMinutes(37);
 
   // Create a time-based trigger
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
     timestamp: date.getTime(), // fire at 11:10am (10 minutes before meeting)
+    alarmManager: true,
   };
 
   // Create a trigger notification
@@ -70,9 +72,7 @@ async function onCreateTriggerNotification() {
 
 const ClearAppData = () => {
   return (
-    <TouchableOpacity
-      onPress={() => onDisplayNotification()}
-      style={GLOBAL_STYLES.settingsListItem}>
+    <TouchableOpacity onPress={() => {}} style={GLOBAL_STYLES.settingsListItem}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <FontAwesomeIcon icon={faTrash} />
         <Text style={{marginLeft: 10}}>Clear App Data</Text>

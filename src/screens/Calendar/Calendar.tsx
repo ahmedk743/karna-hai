@@ -16,7 +16,6 @@ import {useData} from '../../contexts/AppContext';
 const getDaysBetweenDates = function (startDate: any, endDate: any) {
   let now = startDate.clone(),
     dates = [];
-  console.log('now date:', moment(endDate));
   let index = 0;
 
   while (now.isSameOrBefore(endDate)) {
