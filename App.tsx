@@ -9,6 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NewTask} from './src/screens/NewTask';
 import {NativeBaseProvider} from 'native-base';
 import {getPermissions} from './permissions';
+import Address from './src/screens/Address';
 // import BackgroundFetch from 'react-native-background-fetch';
 
 const Stack = createStackNavigator();
@@ -76,6 +77,7 @@ const App = () => {
               component={Tabs}
             />
             <Stack.Screen name="Tags" component={Tags} />
+            <Stack.Screen name="Address" component={Address} />
             {/* <Tabs /> */}
           </Stack.Navigator>
         </NavigationContainer>

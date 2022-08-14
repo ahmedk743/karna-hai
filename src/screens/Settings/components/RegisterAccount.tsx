@@ -12,7 +12,7 @@ import {faEnvelope, faTrash, faUser} from '@fortawesome/free-solid-svg-icons';
 import {GLOBAL_STYLES} from '../../../common';
 import PushNotification from 'react-native-push-notification';
 
-const RegisterAccount = () => {
+const RegisterAccount = ({navigation}: any) => {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   useEffect(() => {
@@ -40,11 +40,11 @@ const RegisterAccount = () => {
 
   return (
     <TouchableOpacity
-      onPress={handleNotificationSch}
+      onPress={() => navigation.navigate('Address')}
       style={GLOBAL_STYLES.settingsListItem}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <FontAwesomeIcon icon={faUser} />
-        <Text style={{marginLeft: 10}}>Register Account</Text>
+        <Text style={{marginLeft: 10}}>Select region for prayers time</Text>
       </View>
     </TouchableOpacity>
   );

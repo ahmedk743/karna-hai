@@ -78,62 +78,62 @@ const Tabs = () => {
           ...styles.shadow,
         },
 
-        headerRight: () => (
-          <Box alignItems="center">
-            <Menu
-              w="190"
-              trigger={(triggerProps: any) => {
-                return (
-                  <TouchableOpacity
-                    style={{
-                      marginRight: 10,
-                      padding: 6,
-                      borderRadius: 50,
-                    }}
-                    accessibilityLabel="More options menu"
-                    {...triggerProps}>
-                    <FontAwesomeIcon
-                      icon={faEllipsisV}
-                      size={20}
-                      color={THEME.COLORS.primary}
-                    />
-                  </TouchableOpacity>
-                );
-              }}>
-              <Menu.Item isDisabled>
-                <Text style={{fontSize: 12}}>Sort</Text>
-              </Menu.Item>
-              <Menu.Item>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <FontAwesomeIcon
-                    color={COLORS.gray}
-                    icon={faSortNumericAsc}
-                    size={20}
-                    style={{marginRight: 5}}
-                  />
-                  <Text> Priority</Text>
-                </View>
-              </Menu.Item>
-              <Menu.Item>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Image
-                    style={{
-                      width: 18,
-                      height: 18,
-                      marginRight: 5,
-                      tintColor: COLORS.gray,
-                    }}
-                    source={require('../assets/images/arrows.png')}></Image>
-                  <Text> Date</Text>
-                </View>
-              </Menu.Item>
-            </Menu>
-          </Box>
-        ),
+        // headerRight: () => (
+        //   <Box alignItems="center">
+        //     <Menu
+        //       w="190"
+        //       trigger={(triggerProps: any) => {
+        //         return (
+        //           <TouchableOpacity
+        //             style={{
+        //               marginRight: 10,
+        //               padding: 6,
+        //               borderRadius: 50,
+        //             }}
+        //             accessibilityLabel="More options menu"
+        //             {...triggerProps}>
+        //             <FontAwesomeIcon
+        //               icon={faEllipsisV}
+        //               size={20}
+        //               color={THEME.COLORS.primary}
+        //             />
+        //           </TouchableOpacity>
+        //         );
+        //       }}>
+        //       <Menu.Item isDisabled>
+        //         <Text style={{fontSize: 12}}>Sort</Text>
+        //       </Menu.Item>
+        //       <Menu.Item>
+        //         <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        //           <FontAwesomeIcon
+        //             color={COLORS.gray}
+        //             icon={faSortNumericAsc}
+        //             size={20}
+        //             style={{marginRight: 5}}
+        //           />
+        //           <Text> Priority</Text>
+        //         </View>
+        //       </Menu.Item>
+        //       <Menu.Item>
+        //         <View
+        //           style={{
+        //             flexDirection: 'row',
+        //             alignItems: 'center',
+        //           }}>
+        //           <Image
+        //             style={{
+        //               width: 18,
+        //               height: 18,
+        //               marginRight: 5,
+        //               tintColor: COLORS.gray,
+        //             }}
+        //             source={require('../assets/images/arrows.png')}></Image>
+        //           <Text> Date</Text>
+        //         </View>
+        //       </Menu.Item>
+        //     </Menu>
+        //   </Box>
+        // ),
         // headerLeft: ({navigation}: any) => (
         //   <TouchableOpacity style={{marginLeft: 12}}>
         //     <FontAwesomeIcon

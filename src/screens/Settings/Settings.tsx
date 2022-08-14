@@ -56,15 +56,15 @@ const Settings = ({navigation}: any) => {
   return (
     <View style={GLOBAL_STYLES.screenWrapper}>
       <Title title="General" />
-      <AutoMessage />
-      <ClearAppData />
+      {/* <AutoMessage /> */}
+      {/* <ClearAppData /> */}
       <ShowTags navigation={navigation} />
-      <SetPrayerTimeLocation />
+      {/* <SetPrayerTimeLocation /> */}
 
       <Title title="Other" />
-      <RegisterAccount />
-      <Button title="Silent" onPress={() => changeMode(RINGER_MODE.silent)} />
-      <Button title="Normal" onPress={() => changeMode(RINGER_MODE.normal)} />
+      <RegisterAccount navigation={navigation} />
+      {/* <Button title="Silent" onPress={() => changeMode(RINGER_MODE.silent)} /> */}
+      {/* <Button title="Normal" onPress={() => changeMode(RINGER_MODE.normal)} /> */}
 
       <Text
         style={{

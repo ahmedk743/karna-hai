@@ -35,7 +35,6 @@ export default function Context(props: PropsWithChildren<any>) {
         const value = jsonValue != null ? JSON.parse(jsonValue) : null;
         if (value !== null) {
           // value previously stored
-          console.log('length at appjs', value.length);
           setTasks(value);
         }
       } catch (e) {
@@ -86,46 +85,6 @@ export default function Context(props: PropsWithChildren<any>) {
           dateRange,
         );
 
-        // listen to call detection and send sms
-        callDetector = new CallDetectorManager(
-          (event: any, phoneNumber: any) => {
-            console.log('Detector active');
-
-            if (event === 'Incoming') {
-              toast.show({
-                description: 'Call is incoming',
-              });
-            } else if (event === 'Missed') {
-              toast.show({
-                description: 'Call missed',
-              });
-              console.log(phoneNumber);
-              SmsAndroid.autoSend(
-                phoneNumber,
-                bodySMS,
-                (fail: any) => {
-                  toast.show({
-                    description: 'Failed with this error: ' + fail,
-                    backgroundColor: 'red.500',
-                  });
-                },
-                (success: any) => {
-                  toast.show({
-                    description: 'SMS sent successfully',
-                  });
-                },
-              );
-            }
-          },
-          true, // if you want to read the phone number of the incoming call    [ANDROID], otherwise false
-          (phoneNumber: any) => {
-            console.log(phoneNumber);
-          }, // callback if your permission got denied [ANDROID] [only if you want to read incoming number] default:
-          toast.show({
-            description: 'Permission denied!',
-            backgroundColor: 'red.500',
-          }),
-        );
         // enable DND
         console.log('mode', mode);
 
@@ -141,7 +100,116 @@ export default function Context(props: PropsWithChildren<any>) {
         });
       }
     }
+
+    // listen to call detection and send sms
+    callDetector = new CallDetectorManager(
+      (event: any, phoneNumber: any) => {
+        console.log('Detector active');
+
+        if (event === 'Incoming') {
+          toast.show({
+            description: 'Call is incoming',
+          });
+        } else if (event === 'Missed') {
+          toast.show({
+            description: 'Call missed',
+          });
+          console.log(phoneNumber);
+          SmsAndroid.autoSend(
+            phoneNumber,
+            bodySMS,
+            (fail: any) => {
+              toast.show({
+                description: 'Failed with this error: ' + fail,
+                backgroundColor: 'red.500',
+              });
+            },
+            (success: any) => {
+              toast.show({
+                description: 'SMS sent successfully',
+              });
+            },
+          );
+        }
+      },
+      true, // if you want to read the phone number of the incoming call    [ANDROID], otherwise false
+      (phoneNumber: any) => {
+        console.log(phoneNumber);
+      }, // callback if your permission got denied [ANDROID] [only if you want to read incoming number] default:
+      toast.show({
+        description: 'Permission denied!',
+        backgroundColor: 'red.500',
+      }),
+    );
+    getPrayerTimes();
   }, [showNewTaskModal, tasks]);
+
+  const [prayers, setPrayers] = useState<any[]>();
+  const [country, setCountry] = useState<string>('pakistan');
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const _storeData = async (value: any) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('prayers', jsonValue);
+    } catch (e: any) {
+      // saving error
+      alert('Error while saving reminder!');
+    }
+  };
+
+  const currentYear = moment().format('YYYY');
+  const currentMonth = moment().format('M');
+
+  const getPrayerTimes = () => {
+    setLoading(true);
+
+    const getData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('prayers');
+        const value = jsonValue != null ? JSON.parse(jsonValue) : null;
+        if (value !== null) {
+          // value previously stored
+
+          setPrayers(value);
+        } else {
+          console.log('getting from api');
+
+          fetch(
+            `https://api.aladhan.com/v1/calendar?latitude=33.673354&longitude=73.027972&method=2&month=${currentMonth}&year=${currentYear}`,
+          )
+            .then(res => res.json())
+            .then(prayers => {
+              let timings = prayers.data[0].timings;
+              if (timings) {
+                let prayersTemp: any[] = [];
+                const names = Object.keys(timings);
+                names.forEach((item: any, index: number) => {
+                  prayersTemp.push({
+                    id: index,
+                    name: item,
+                    allow: false,
+                    time: timings[item],
+                  });
+                });
+                setPrayers(prayersTemp);
+                _storeData(prayersTemp);
+              }
+              setLoading(false);
+            })
+            .catch(() => {
+              setLoading(false);
+              alert('No internet connection to sync prayer times.');
+            });
+        }
+      } catch (e) {
+        // error reading value
+        alert('Cannot get data from storage!');
+      }
+    };
+    getData();
+    setLoading(false);
+  };
 
   return (
     <myContext.Provider
@@ -152,6 +220,9 @@ export default function Context(props: PropsWithChildren<any>) {
         setShowNewTaskModal,
         tasks,
         setTasks,
+        prayers,
+        loading,
+        setPrayers,
       }}>
       {props.children}
     </myContext.Provider>
